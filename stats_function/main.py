@@ -53,9 +53,14 @@ def hello_http(request):
     if request.method == "OPTIONS":
         return ("", 200, headers)
     if request.args.get("week"):
-        score_dfs = [pd.DataFrame(get_scores_for_week(int(request.args.get("week")))).set_index(0).rename(columns={1:f"week {request.args.get('week')}"})]
+        week = int(request.args.get("week"))
+        score_dfs = [pd.DataFrame(get_scores_for_week(week)) \
+                     .set_index(0) \
+                     .rename(columns={1:f"week {request.args.get('week')}"})]
     else:
-        score_dfs = [pd.DataFrame(get_scores_for_week(i)).set_index(0).rename(columns={1:f"week {i}"}) for i in range(1,NUM_WEEKS)]
+        score_dfs = [pd.DataFrame(get_scores_for_week(i)) \
+                     .set_index(0) \
+                     .rename(columns={1:f"week {i}"}) for i in range(1,NUM_WEEKS)]
 
     score_df = reduce(lambda x, y: x.merge(y,left_index=True,right_index=True), score_dfs)
     score_df = score_df[~score_df.index.isin(["Ryan Griffin", "Josh Johnson"])]
