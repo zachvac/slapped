@@ -1,0 +1,166 @@
+<head>
+  <link rel="icon" type="image/png" href="https://i.imgur.com/mSupJI8.png"/>
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+    <script src="tab.js" charset="utf-8"></script>
+    <script language="javascript">
+      function draw_graphs(scores, bets) {
+        var images = {
+            "Jalen Hurts": "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/4040715.png&w=96&h=70&cb=1",
+            "Lamar Jackson": "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/3916387.png&w=96&h=70&cb=1",
+            "DJ Moore": "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/3915416.png&w=96&h=70&cb=1",
+            "Mike Evans": "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/16737.png&w=96&h=70&cb=1",
+            "Rashee Rice": "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/4428331.png&w=96&h=70&cb=1",
+            "Xavier Worthy": "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/4683062.png&w=96&h=70&cb=1",
+            "Kenneth Walker III": "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/4567048.png&w=96&h=70&cb=1",
+            "Joe Mixon": "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/3116385.png&w=96&h=70&cb=1",
+            "Anthony Richardson": "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/4429084.png&w=96&h=70&cb=1",
+            "Kirk Cousins": "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/14880.png&w=96&h=70&cb=1",
+            "Cooper Kupp": "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/2977187.png&w=96&h=70&cb=1",
+            "Jaylen Waddle": "https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/4372016.png&w=96&h=70&cb=1"
+        }
+
+        var colors = {
+            "Jalen Hurts": "#004C54",
+            "Lamar Jackson": "#241773",
+            "DJ Moore": "#0B162A",
+            "Mike Evans": "#D50A0A",
+            "Rashee Rice": "#E31837",
+            "Xavier Worthy": "#FFB81C",
+            "Kenneth Walker III": "#002244",
+            "Joe Mixon": "#A71930",
+            "Anthony Richardson": "#002C5F",
+            "Kirk Cousins": "#A71930",
+            "Cooper Kupp": "#FFA300",
+            "Jaylen Waddle": "#008E97"
+        }
+        var bets_scores = []
+        
+        for(var bet of bets) {
+            temp_bet = []
+            for(var side of bet) {
+                temp = side
+                temp["score"] = scores[side["player"]]
+                temp["image"] = images[side["player"]]
+                temp["color"] = colors[side["player"]]
+                temp_bet.push(temp)
+            }
+            bets_scores.push(temp_bet)
+        }
+        console.log(bets_scores)
+        var data = []
+        var i = 0
+        for(var bet of bets_scores) {
+                var x_ticks = [];
+                for (var j = 0; j <= bet[0]["score"].length-1; j++) {
+                    x_ticks.push(j);
+                }
+            i += 1
+            var trace1 = {
+                    x: x_ticks,
+                    y: bet[0]["score"].map((sum => value => sum += value)(0)),
+                    type: 'scatter',
+                    name: bet[0]["manager"] + " - " + bet[0]["player"],
+                    marker: {color: bet[0]["color"]}
+            }
+            var trace2 = {
+                    x: x_ticks,
+                    y: bet[1]["score"].map((sum => value => sum += value)(0)),
+                    type: 'scatter',
+                    name: bet[1]["manager"] + " - " + bet[1]["player"],
+                    marker: {color: bet[1]["color"]}
+            }
+            var data = [trace1, trace2]
+            var newDiv = document.createElement("div")
+            newDiv.id = "myDiv" + i
+            document.getElementById("bets").appendChild(newDiv)
+            // math for image plots
+            var y_sum_0 = bet[0]["score"].reduce((a, b) => a + b, 0)
+            var y_sum_1 = bet[1]["score"].reduce((a, b) => a + b, 0)
+            var max_y = Math.max(y_sum_0, y_sum_1)
+            var max_x = bet[0]["score"].length - 1
+            var layout = {
+                "height": "500",
+                "width": "1000",
+                images: [
+                    {"source": bet[0]["image"], 
+                    "x": max_x - 0.3,
+                    "y": bet[0]["score"].reduce((a, b) => a + b, 0) + 0.5 * max_y/max_x,    // sum
+                    "sizex": 0.75,
+                    "sizey": max_y/max_x,
+                    "xref": "x",
+                    "yref": "y",
+                    "sizing": "stretch"},
+                    {"source": bet[1]["image"], 
+                    "x": max_x - 0.5,
+                    "y": bet[1]["score"].reduce((a, b) => a + b, 0) + 0.5 * max_y/max_x,    // sum
+                    "sizex": 1,
+                    "sizey": max_y/max_x,
+                    "xref": "x",
+                    "yref": "y",
+                    "sizing": "stretch"}
+                ]
+            }
+            Plotly.newPlot('myDiv' + i, data, layout);
+        }
+      }
+      window.addEventListener('DOMContentLoaded', (event) => {
+        document.getElementById("feature_button").addEventListener("click", function(){
+        alert("this does nothing, your idea went straight into the garbage!")
+      })
+});
+Promise.all([
+fetch('https://us-east4-fifth-subject-367121.cloudfunctions.net/function-1').then(response => {return response.json()}),
+fetch("https://us-east4-fifth-subject-367121.cloudfunctions.net/function-2").then(response => {return response.json()})
+]).then(([scores, bets]) => {
+  draw_graphs(scores, bets)
+})
+    
+    </script>
+        <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+Under slapstruction
+</br>
+<img src="https://i.imgur.com/mSupJI8.png" width="100" height="60">
+<div class="tab">
+    <button class="tablinks" onclick="changeTab(event, 'Slap Bets')">Slap Bets</button>
+    <button class="tablinks" onclick="changeTab(event, 'Slap Bet Compilation Video')">Slap Bet Compilation Video</button>
+    <button class="tablinks" onclick="changeTab(event, 'Add Your Slap Bet')">Add Your Slap Bet</button>
+    <button class="tablinks" onclick="changeTab(event, 'Luck Metrics')">Luck Metrics</button>
+    <button class="tablinks" onclick="changeTab(event, 'Features in Progress')">Features in Progress</button>
+  </div>
+  
+  <!-- Tab content -->
+  <div id="Slap Bets" class="tabcontent" style="display:block">
+    <h3>Slap Bets</h3>
+    <div id="bets"></div>
+  </div>
+  
+  <div id="Slap Bet Compilation Video" class="tabcontent">
+    <iframe width="420" height="315"
+src="https://www.youtube.com/embed/KCPezfO8i6I">
+</iframe>
+  </div>
+  
+  <div id="Add Your Slap Bet" class="tabcontent">
+    <h3>Add Your Slap Bet</h3>
+    <p>This should probably do stuff</p>
+  </div>
+
+  <div id="Luck Metrics" class="tabcontent">
+    <h3>How lucky are you?</h3>
+    <p>This should probably do stuff</p>
+  </div>
+  <div id="Features in Progress" class="tabcontent">
+    <h3>Features in progress</h3>
+    <ul>
+      <li>Improve page load time</li>
+      <li>Allow addition of slap bets</li>
+      <li>Add luck metrics</li>
+      <li>https support (so browser doesn't yell at you that it's insecure)</li>
+    </ul>
+    <textarea placeholder="suggest your own feature"></textarea></br>
+    <button id="feature_button" style="margin-top: 20px">Request feature</button>
+  </div>
+</body>

@@ -1,0 +1,62 @@
+[
+    [
+       {
+          "manager":"Jason McMillan",
+          "player":"Jalen Hurts"
+       },
+       {
+          "manager":"Sean",
+          "player":"Lamar Jackson"
+       }
+    ],
+    [
+       {
+          "manager":"Alex",
+          "player":"DJ Moore"
+       },
+       {
+          "manager":"James",
+          "player":"Mike Evans"
+       }
+    ],
+    [
+       {
+          "manager":"Scott",
+          "player":"Rashee Rice"
+       },
+       {
+          "manager":"Window",
+          "player":"Xavier Worthy"
+       }
+    ],
+    [
+       {
+          "manager":"Scott",
+          "player":"Kenneth Walker III"
+       },
+       {
+          "manager":"Jason Smith",
+          "player":"Joe Mixon"
+       }
+    ],
+    [
+        {
+           "manager":"Scott",
+           "player":"Anthony Richardson"
+        },
+        {
+           "manager":"Jason McMillan",
+           "player":"Kirk Cousins"
+        }
+     ],
+     [
+        {
+           "manager":"Jason Smith",
+           "player":"Cooper Kupp"
+        },
+        {
+           "manager":"Sean",
+           "player":"Jaylen Waddle"
+        }
+     ]
+ ]
