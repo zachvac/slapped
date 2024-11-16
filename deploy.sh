@@ -1,4 +1,4 @@
-aws s3 cp index.html s3://www.youjustgotslapped.com/index.html
+aws s3 cp --region us-east-1 index.html s3://www.youjustgotslapped.com/index.html
 aws s3 cp style.css s3://www.youjustgotslapped.com/style.css
 aws s3 cp tab.js s3://www.youjustgotslapped.com/tab.js
 gcloud storage cp slaps.json gs://zach-slaps/slaps.json # once we can add slaps on UI this can be removed
