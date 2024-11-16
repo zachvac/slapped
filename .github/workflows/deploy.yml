@@ -17,4 +17,5 @@ jobs:
         credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
     - name: Deploy projects
       run: |
+        gcloud config set pass_credentials_to_gsutil true
         sh deploy.sh
