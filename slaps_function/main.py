@@ -1,6 +1,6 @@
 # pylint: disable=duplicate-code
 """
-deployed to GCP functions to pull slap bets from bucket
+deployed to GCP functions to pull slap bets from GCP bucket
 """
 import functions_framework
 from google.cloud import storage
