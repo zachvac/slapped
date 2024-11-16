@@ -16,5 +16,7 @@ jobs:
       with:
         credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
     - name: Deploy project
-      run: |
-        sh deploy.sh
+      env:
+        AWS_ACCESS_KEY_ID: '${{ secrets.AWS_KEY }}'
+        AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_KEY }}'
+      run: sh deploy.sh
