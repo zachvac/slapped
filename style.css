@@ -1,7 +1,7 @@
 .tab {
     overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    border: 1px solid rgb(0,101,45);
+    background-color: rgb(0,101,45);
   }
   
   /* Style the buttons that are used to open the tab content */
@@ -13,11 +13,13 @@
     cursor: pointer;
     padding: 14px 16px;
     transition: 0.3s;
+    color: white
   }
   
   /* Change background color of buttons on hover */
   .tab button:hover {
-    background-color: #ddd;
+    background-color: white;
+    color: rgb(0,101,45);
   }
   
   /* Create an active/current tablink class */
@@ -29,6 +31,6 @@
   .tabcontent {
     display: none;
     padding: 6px 12px;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(0,101,45);
     border-top: none;
   }
