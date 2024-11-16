@@ -10,6 +10,11 @@ jobs:
         python-version: ["3.12"]
     steps:
     - uses: actions/checkout@v4
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v0.4.0'
+      with:
+        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
     - name: Deploy project
       run: |
         sh deploy.sh
