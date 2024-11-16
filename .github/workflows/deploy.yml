@@ -1,0 +1,15 @@
+name: Deploy
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Deploy project
+      run: |
+        sh deploy.sh
