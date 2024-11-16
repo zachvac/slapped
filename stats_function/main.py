@@ -1,9 +1,13 @@
+"""
+deployed to GCP functions to pull stats from espn fantasy api
+"""
+
 from functools import reduce
 import functions_framework
 import requests
 import pandas as pd
 
-num_weeks = 12
+NUM_WEEKS = 12
 cookies = {'swid':'{97FD64FC-E909-4847-9481-08840AEA0E3D}','espn_s2':'AEBk%2BZxnTuZgtmMbgAf1ZD%2BQVk0%2FINTvdsJ9YwerfLFcGQAznxuOQ2Lq%2ByVeam2XMB%2FCnKSXEwd112wrC65B4LOcdz3%2FT14S7hDJ0c5csb2HxU5%2F4RmbhdAsytRJC7eXF%2FpRw3pjIMwMGWOLqfvYj%2FEZG7inQG3ZAOoGI%2BTUKMCHaOrio8OQxf1jYDJmnDbzED%2FdCGyYhWomaOtd%2FpjlsUdWSsaVmwm59bO7p2PUvTyskaBTvn21325LM7aYG4BjWiCmUhkY8BbUtLCo8kpHblvR'}
 
 def extract_name_score(players, week):
@@ -26,8 +30,8 @@ def hello_http(request):
     }
     if request.method == "OPTIONS":
         return ("", 200, headers)
-    scores = [get_scores_for_week(i) for i in range(1,num_weeks)]
-    score_dfs = [pd.DataFrame(scores[i-1]).set_index(0).rename(columns={1:f"week {i}"}) for i in range(1,num_weeks)]
+    scores = [get_scores_for_week(i) for i in range(1,NUM_WEEKS)]
+    score_dfs = [pd.DataFrame(scores[i-1]).set_index(0).rename(columns={1:f"week {i}"}) for i in range(1,NUM_WEEKS)]
     score_df = reduce(lambda x, y: x.merge(y,left_index=True,right_index=True), score_dfs)
     score_df = score_df[~score_df.index.isin(["Ryan Griffin", "Josh Johnson"])]
     score_dict = score_df.to_dict(orient="split")
