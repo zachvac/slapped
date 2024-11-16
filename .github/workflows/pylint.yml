@@ -1,6 +1,6 @@
 name: Pylint
 
-on: [commit]
+on: [pull_request]
 
 jobs:
   build:
