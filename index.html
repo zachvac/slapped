@@ -82,6 +82,8 @@
                 "height": "500",
                 "width": "1000",
                 dragmode: false,
+                yaxis: {fixedrange: true},
+                xaxis: {fixedrange: true},
                 images: [
                     {"source": bet[0]["image"], 
                     "x": max_x - 0.3,
@@ -101,7 +103,10 @@
                     "sizing": "stretch"}
                 ]
             }
-            Plotly.newPlot('myDiv' + i, data, layout);
+            var config = {
+              "displayModeBar": false
+            }
+            Plotly.newPlot('myDiv' + i, data, layout, config);
         }
       }
       window.addEventListener('DOMContentLoaded', (event) => {
