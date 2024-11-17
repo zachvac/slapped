@@ -79,8 +79,9 @@
             var max_y = Math.max(y_sum_0, y_sum_1)
             var max_x = bet[0]["score"].length - 1
             var layout = {
+                autosize: true,
                 "height": "500",
-                "width": "1000",
+                // "width": "1000",
                 dragmode: false,
                 yaxis: {fixedrange: true},
                 xaxis: {fixedrange: true},
@@ -104,7 +105,8 @@
                 ]
             }
             var config = {
-              "displayModeBar": false
+              "displayModeBar": false,
+              responsive: true
             }
             Plotly.newPlot('myDiv' + i, data, layout, config);
         }
@@ -160,7 +162,7 @@ fetch("https://us-east4-fifth-subject-367121.cloudfunctions.net/function-2").the
   <!-- Tab content -->
   <div id="Slap Bets" class="tabcontent" style="display:block">
     <h3>Slap Bets</h3>
-    <div id="bets"></div>
+    <div id="bets" style="max-width:1000"></div>
   </div>
   
   <div id="Slap Bet Compilation Video" class="tabcontent">
