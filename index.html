@@ -51,20 +51,20 @@
         var i = 0
         for(var bet of bets_scores) {
                 var x_ticks = [];
-                for (var j = 0; j <= bet[0]["score"].length-1; j++) {
+                for (var j = 0; j <= bet[0]["score"].length; j++) {
                     x_ticks.push(j);
                 }
             i += 1
             var trace1 = {
                     x: x_ticks,
-                    y: bet[0]["score"].map((sum => value => sum += value)(0)),
+                    y: [0].concat(bet[0]["score"].map((sum => value => sum += value)(0))),
                     type: 'scatter',
                     name: bet[0]["manager"] + " - " + bet[0]["player"],
                     marker: {color: bet[0]["color"]}
             }
             var trace2 = {
                     x: x_ticks,
-                    y: bet[1]["score"].map((sum => value => sum += value)(0)),
+                    y: [0].concat(bet[1]["score"].map((sum => value => sum += value)(0))),
                     type: 'scatter',
                     name: bet[1]["manager"] + " - " + bet[1]["player"],
                     marker: {color: bet[1]["color"]}
@@ -77,11 +77,10 @@
             var y_sum_0 = bet[0]["score"].reduce((a, b) => a + b, 0)
             var y_sum_1 = bet[1]["score"].reduce((a, b) => a + b, 0)
             var max_y = Math.max(y_sum_0, y_sum_1)
-            var max_x = bet[0]["score"].length - 1
+            var max_x = bet[0]["score"].length
             var layout = {
                 autosize: true,
                 "height": "500",
-                // "width": "1000",
                 dragmode: false,
                 yaxis: {fixedrange: true},
                 xaxis: {fixedrange: true},
