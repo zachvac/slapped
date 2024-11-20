@@ -136,9 +136,10 @@ fetch('https://us-east4-fifth-subject-367121.cloudfunctions.net/function-1?week=
 fetch('https://us-east4-fifth-subject-367121.cloudfunctions.net/function-1?week=9').then(response => {return response.json()}),
 fetch('https://us-east4-fifth-subject-367121.cloudfunctions.net/function-1?week=10').then(response => {return response.json()}),
 fetch('https://us-east4-fifth-subject-367121.cloudfunctions.net/function-1?week=11').then(response => {return response.json()}),
+fetch('https://us-east4-fifth-subject-367121.cloudfunctions.net/function-1?week=12').then(response => {return response.json()}),
 fetch("https://us-east4-fifth-subject-367121.cloudfunctions.net/function-2").then(response => {return response.json()})
-]).then(([week1, week2, week3, week4, week5, week6, week7, week8, week9, week10, week11, bets]) => {
-  scores = combine_scores([week1, week2, week3, week4, week5, week6, week7, week8, week9, week10, week11])
+]).then(([week1, week2, week3, week4, week5, week6, week7, week8, week9, week10, week11, week12, bets]) => {
+  scores = combine_scores([week1, week2, week3, week4, week5, week6, week7, week8, week9, week10, week11, week12])
   draw_graphs(scores, bets)
 })
     
