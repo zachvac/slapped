@@ -21,4 +21,3 @@ def hello_http(request):
     bucket = client.get_bucket('zach-slaps')
     blob = bucket.get_blob('slaps.json')
     return(blob.download_as_text(), 200, headers)
-# test
