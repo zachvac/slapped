@@ -69,3 +69,4 @@ def hello_http(request):
     for i,x in enumerate(score_dict["index"]):
         score_dict_clean[x] = score_dict["data"][i]
     return (score_dict_clean, 200, headers)
+#test
