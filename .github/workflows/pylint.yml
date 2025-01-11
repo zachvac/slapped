@@ -2,8 +2,6 @@ name: Pylint
 
 on:
   push:
-    paths:
-      - '**.py'
     branches-ignore:
       - master
 jobs:
@@ -25,3 +23,5 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files '*.py')
+
+
